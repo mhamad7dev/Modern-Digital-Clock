@@ -37,32 +37,14 @@
 
 ---
 
-## 🚀 طريقة التشغيل (Getting Started)
-
-1. قم بجمح (Clone) المستودع إلى جهازك:
-   ```bash
-   git clone [https://github.com/mhamad7dev/Modern-Digital-Clock.git](https://github.com/mhamad7dev/Modern-Digital-Clock.git)
 
 
-​افتح مجلد المشروع.
 
-​افتح ملف index.html في أي متصفح ويب حديث.
-
-​💻 تنويه للمطورين: المشروع مفتوح المصدر بالكامل وم متاح للجميع للاقتباس والتطوير. مرحب بك في تقديم طلبات السحب (Pull Requests) أو إضافة ميزات جديدة!
-
-​👩‍💻 المساهمة والتطوير:
-
-​هذا المشروع هو جزء من مبادرة لإثراء المحتوى البرمجي المفتوح المصدر. إذا وجدت ثغرة، لديك فكرة لتحسين التصميم، أو ترغب في إضافة ميزة جديدة، فلا تتردد في:
-
-​عمل "Fork" للمستودع.
-
-​إنشاء فرع جديد لميزتك (git checkout -b feature/AmazingFeature).
-
-​تقديم طلب سحب (Pull Request).
+​💻 المشروع مفتوح المصدر بالكامل وم متاح للجميع للاقتباس والتطوير.
 
 ​👨‍💻 تطوير:
 
-​المطور: Mhamad Adil (Mhamad_Dev)
+​Mhamad Adil (Mhamad_Dev)
 
 GitHub: github.com/mhamad7dev
 

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#060913" />
+    <meta name="description" content="A modern, futuristic digital clock experience by M.CODE." />
+
+    <title>Digital Clock | Cyber Edition | Mhamad_Dev</title>
+
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="page flex items-center justify-center min-h-screen p-4 sm:p-6 md:p-10 relative">
+
+    <!-- Ambient Mesh Dynamic Background -->
+    <div class="bg-ambient" id="bg-ambient"></div>
+
+    <main class="clock glass-panel w-full max-w-3xl rounded-3xl p-6 sm:p-10 z-10 flex flex-col gap-8 relative overflow-hidden">
+        
+        <!-- HEADER -->
+        <header class="clock__header flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/10">
+            <div class="clock__brand flex items-center gap-4">
+                <div class="clock__logo w-14 h-14 rounded-2xl flex items-center justify-center font-black text-xl text-slate-950 shadow-lg transition-transform hover:scale-105 cursor-pointer"
+                    style="background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));"
+                    title="M.CODE Signature">
+                    M.D
+                </div>
+
+                <div class="clock__brand-info">
+                    <h1 class="clock__title text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                        Digital Clock <span class="text-xs px-2 py-0.5 rounded-full bg-white/10 text-gradient border border-white/10">PRO</span>
+                    </h1>
+                    <p class="clock__subtitle text-xs sm:text-sm text-slate-400 mt-0.5">Time, beautifully simplified.</p>
+                </div>
+            </div>
+
+            <!-- Header Actions: Theme Switcher & Fullscreen & Audio -->
+            <div class="flex items-center gap-3">
+                
+                <!-- Audio Toggle -->
+                <button id="btn-audio" type="button" class="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-slate-400 hover:text-white transition" title="Toggle Sound Effect">
+                    <i class="fa-solid fa-volume-xmark text-sm" id="icon-audio"></i>
+                </button>
+
+                <!-- Fullscreen Toggle -->
+                <button id="btn-fullscreen" type="button" class="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-slate-400 hover:text-white transition" title="Toggle Fullscreen">
+                    <i class="fa-solid fa-expand text-sm"></i>
+                </button>
+
+                <!-- Time Format Switcher (12h/24h) -->
+                <div class="clock__toggle flex items-center p-1 bg-black/40 border border-white/10 rounded-full" role="group" aria-label="Time format">
+                    <button class="clock__format btn-glow-active px-3 py-1.5 text-xs font-bold rounded-full transition-all" type="button" data-format="12" aria-pressed="true">
+                        12 hr
+                    </button>
+                    <button class="clock__format px-3 py-1.5 text-xs font-bold text-slate-400 rounded-full hover:text-white transition-all" type="button" data-format="24" aria-pressed="false">
+                        24 hr
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- TOOLBAR: Mode Switcher & Themes Selector -->
+        <div class="flex flex-wrap items-center justify-between gap-4 bg-black/20 p-2 rounded-2xl border border-white/5">
+            <!-- Mode Switcher -->
+            <div class="flex items-center gap-1">
+                <button id="mode-clock" class="px-4 py-2 text-xs font-semibold rounded-xl bg-white/10 text-white border border-white/10 transition flex items-center gap-2">
+                    <i class="fa-regular fa-clock"></i> Clock
+                </button>
+                <button id="mode-stopwatch" class="px-4 py-2 text-xs font-semibold rounded-xl text-slate-400 hover:text-white transition flex items-center gap-2">
+                    <i class="fa-solid fa-stopwatch"></i> Stopwatch
+                </button>
+                <button id="mode-timer" class="px-4 py-2 text-xs font-semibold rounded-xl text-slate-400 hover:text-white transition flex items-center gap-2">
+                    <i class="fa-solid fa-hourglass-half"></i> Timer
+                </button>
+            </div>
+
+            <!-- Theme Picker Buttons -->
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-slate-500 font-medium">Theme:</span>
+                <button class="theme-btn w-6 h-6 rounded-full bg-cyan-400 ring-2 ring-offset-2 ring-offset-slate-950 ring-cyan-400" data-theme-name="cyan" title="Cyan Neon"></button>
+                <button class="theme-btn w-6 h-6 rounded-full bg-emerald-400 opacity-60 hover:opacity-100 transition" data-theme-name="emerald" title="Emerald Glow"></button>
+                <button class="theme-btn w-6 h-6 rounded-full bg-purple-400 opacity-60 hover:opacity-100 transition" data-theme-name="purple" title="Cyber Purple"></button>
+                <button class="theme-btn w-6 h-6 rounded-full bg-amber-400 opacity-60 hover:opacity-100 transition" data-theme-name="amber" title="Solar Amber"></button>
+            </div>
+        </div>
+
+        <!-- MAIN DISPLAY SECTION -->
+        <section class="clock__display flex flex-col md:flex-row items-center justify-between gap-8 py-4 my-2 relative" aria-label="Current local time">
+            
+            <!-- CLOCK VIEW PANEL -->
+            <div id="panel-clock" class="w-full flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Digital Time Display -->
+                <div class="clock__time-wrap flex flex-col items-center md:items-start">
+                    <div class="flex items-baseline gap-2 sm:gap-3">
+                        <time class="clock__time tabular-num text-5xl sm:text-7xl lg:text-8xl font-black text-white tracking-tight" id="clock-time">
+                            00:00:00
+                        </time>
+                        <span class="clock__period text-lg sm:text-2xl font-bold tracking-widest text-gradient uppercase" id="clock-period" aria-hidden="true">
+                            AM
+                        </span>
+                    </div>
+
+                    <!-- Date & Day Info -->
+                    <div class="clock__details flex items-center gap-3 mt-4 text-slate-300">
+                        <time class="clock__date text-sm sm:text-base font-semibold" id="clock-date">Loading date...</time>
+                        <span class="w-1.5 h-1.5 rounded-full bg-teal-400" style="background-color: var(--color-accent);"></span>
+                        <p class="clock__day text-sm sm:text-base text-slate-400" id="clock-day">Loading day...</p>
+                    </div>
+                </div>
+
+                <!-- Modern Seconds Visual Ring -->
+                <div class="relative w-36 h-36 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-full h-full" viewBox="0 0 100 100">
+                        <circle class="text-slate-800" stroke-width="6" stroke="currentColor" fill="transparent" r="42" cx="50" cy="50"/>
+                        <circle id="seconds-ring" class="progress-ring__circle" stroke-width="6" stroke-linecap="round" fill="transparent" r="42" cx="50" cy="50"
+                                stroke-dasharray="263.89" stroke-dashoffset="0"/>
+                    </svg>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                        <span class="text-xs text-slate-400 uppercase tracking-widest">Sec</span>
+                        <span id="seconds-val" class="tabular-num text-xl font-bold text-white">00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STOPWATCH PANEL (Initially Hidden) -->
+            <div id="panel-stopwatch" class="hidden w-full flex-col items-center justify-center py-4 gap-6">
+                <div class="tabular-num text-5xl sm:text-7xl font-extrabold text-white tracking-tight" id="sw-display">
+                    00:00.00
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="sw-start" class="px-6 py-2.5 rounded-xl font-bold text-slate-950 bg-gradient-to-r transition hover:scale-105" 
+                            style="background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));">
+                        Start
+                    </button>
+                    <button id="sw-reset" class="px-6 py-2.5 rounded-xl font-bold text-white bg-white/10 hover:bg-white/20 transition">
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- TIMER PANEL (Initially Hidden) -->
+            <div id="panel-timer" class="hidden w-full flex-col items-center justify-center py-4 gap-6">
+                <!-- إدخال الوقت (ساعات، دقائق، وثواني) -->
+                <div id="timer-input-wrap" class="flex items-center gap-2 sm:gap-3">
+                    <div class="flex flex-col items-center">
+                        <span class="text-xs text-slate-400 mb-1">Hours</span>
+                        <input type="number" id="timer-input-hours" min="0" max="23" value="00" 
+                               class="w-16 sm:w-20 bg-black/40 border border-white/10 rounded-xl text-center text-xl sm:text-2xl font-bold text-white py-2 focus:outline-none focus:border-[var(--color-accent)] tabular-num">
+                    </div>
+                    <span class="text-2xl sm:text-3xl font-bold text-slate-500 mt-5">:</span>
+                    
+                    <div class="flex flex-col items-center">
+                        <span class="text-xs text-slate-400 mb-1">Minutes</span>
+                        <input type="number" id="timer-input-mins" min="0" max="59" value="05" 
+                               class="w-16 sm:w-20 bg-black/40 border border-white/10 rounded-xl text-center text-xl sm:text-2xl font-bold text-white py-2 focus:outline-none focus:border-[var(--color-accent)] tabular-num">
+                    </div>
+                    <span class="text-2xl sm:text-3xl font-bold text-slate-500 mt-5">:</span>
+                    
+                    <div class="flex flex-col items-center">
+                        <span class="text-xs text-slate-400 mb-1">Seconds</span>
+                        <input type="number" id="timer-input-secs" min="0" max="59" value="00" 
+                               class="w-16 sm:w-20 bg-black/40 border border-white/10 rounded-xl text-center text-xl sm:text-2xl font-bold text-white py-2 focus:outline-none focus:border-[var(--color-accent)] tabular-num">
+                    </div>
+                </div>
+
+                <!-- شاشة عرض التايمر أثناء العد -->
+                <div id="timer-display" class="hidden tabular-num text-5xl sm:text-7xl font-extrabold text-white tracking-tight">
+                    00:05:00
+                </div>
+
+                <!-- أزرار التحكم بالتايمر -->
+                <div class="flex items-center gap-4">
+                    <button id="timer-start" class="px-6 py-2.5 rounded-xl font-bold text-slate-950 bg-gradient-to-r transition hover:scale-105" 
+                            style="background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));">
+                        Start
+                    </button>
+                    <button id="timer-reset" class="px-6 py-2.5 rounded-xl font-bold text-white bg-white/10 hover:bg-white/20 transition">
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="clock__footer flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/10 text-xs text-slate-400">
+            <p class="clock__status flex items-center gap-2">
+                <span class="clock__status-dot w-2.5 h-2.5 rounded-full relative" style="background: var(--color-accent); box-shadow: 0 0 10px var(--color-accent);">
+                    <span class="animate-ping absolute inset-0 rounded-full opacity-75" style="background: var(--color-accent);"></span>
+                </span>
+                Live clock
+            </p>
+
+            <div class="clock__timezone flex flex-col">
+                <span class="clock__timezone-label text-[10px] uppercase font-bold tracking-widest text-slate-500">TIME ZONE</span>
+                <span class="clock__timezone-value font-medium text-slate-200" id="clock-timezone">Local time</span>
+            </div>
+
+            <a class="clock__credit group flex items-center gap-1.5 text-slate-400 hover:text-white transition"
+                href="https://www.instagram.com/mhamad.adil.dev?dlrf=NTJnejgzcGY0NXA0"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit Mhamad_Dev on Instagram">
+                <span class="clock__credit-label">Developed by</span>
+                <span class="clock__credit-name font-bold text-slate-200 group-hover:text-gradient transition">
+                    Mhamad_Dev<span class="clock__credit-dot" style="color: var(--color-accent);">.</span>
+                </span>
+            </a>
+        </footer>
+    </main>
+
+    <!-- JS -->
+    <script src="script.js"></script>
+</body>
+</html>

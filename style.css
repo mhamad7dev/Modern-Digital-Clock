@@ -1,0 +1,315 @@
+/* Custom Design Tokens & Themes */
+:root {
+    color-scheme: dark;
+    --color-page: #050811;
+    --color-card-bg: rgba(13, 20, 36, 0.65);
+    --color-card-border: rgba(255, 255, 255, 0.08);
+
+    /* Default Theme: Cyan Neon */
+    --color-accent: #22d3c5;
+    --color-accent-glow: rgba(34, 211, 197, 0.35);
+    --color-accent-soft: rgba(34, 211, 197, 0.12);
+    --color-gradient-start: #22d3c5;
+    --color-gradient-end: #3b82f6;
+
+    --font-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --radius-card: 28px;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Themes definition */
+[data-theme="emerald"] {
+    --color-accent: #10b981;
+    --color-accent-glow: rgba(16, 185, 129, 0.35);
+    --color-accent-soft: rgba(16, 185, 129, 0.12);
+    --color-gradient-start: #10b981;
+    --color-gradient-end: #06b6d4;
+}
+
+[data-theme="purple"] {
+    --color-accent: #a855f7;
+    --color-accent-glow: rgba(168, 85, 247, 0.35);
+    --color-accent-soft: rgba(168, 85, 247, 0.12);
+    --color-gradient-start: #c084fc;
+    --color-gradient-end: #ec4899;
+}
+
+[data-theme="amber"] {
+    --color-accent: #f59e0b;
+    --color-accent-glow: rgba(245, 158, 11, 0.35);
+    --color-accent-soft: rgba(245, 158, 11, 0.12);
+    --color-gradient-start: #fbbf24;
+    --color-gradient-end: #ef4444;
+}
+
+/* Base Reset & Aesthetics */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-page);
+    color: #f4f7fb;
+    font-family: var(--font-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Dynamic Animated Background Mesh */
+.bg-ambient {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: 
+    radial-gradient(circle at 20% 20%, var(--color-accent-glow) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.8) 0%, #050811 100%);
+    filter: blur(40px);
+    transition: var(--transition-smooth);
+}
+
+/* Glassmorphism Panel */
+.glass-panel {
+    background: var(--color-card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--color-card-border);
+    box-shadow: 
+    0 30px 60px -12px rgba(0, 0, 0, 0.56),
+    0 0 40px -10px var(--color-accent-glow);
+    transition: var(--transition-smooth);
+}
+
+/* Tabular Numbers for Smooth Time Transition */
+.tabular-num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.04em;
+}
+
+/* Pulse separator animation */
+.pulse-dots {
+    animation: blink 1s infinite steps(1, start);
+    color: var(--color-accent);
+}
+
+@keyframes blink {
+    50% { opacity: 0.2; }
+}
+
+/* Circular Progress Ring */
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.35s ease-in-out;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    stroke: var(--color-accent);
+    filter: drop-shadow(0 0 8px var(--color-accent));
+}
+
+/* Active Glow Button States */
+.btn-glow-active {
+    color: var(--color-accent) !important;
+    background-color: var(--color-accent-soft) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 0 15px var(--color-accent-glow);
+}
+
+/* Gradient Text */
+.text-gradient {
+    background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Refined, premium finish for the Tailwind-based clock interface */
+body.page {
+    isolation: isolate;
+    background:
+        radial-gradient(ellipse at 50% -20%, rgba(32, 63, 83, 0.45), transparent 58%),
+        #050811;
+}
+
+.bg-ambient {
+    background:
+        radial-gradient(ellipse at 14% 12%, var(--color-accent-glow), transparent 34%),
+        radial-gradient(ellipse at 88% 82%, rgba(168, 126, 67, 0.12), transparent 36%),
+        radial-gradient(ellipse at 50% 50%, rgba(15, 23, 42, 0.45), #050811 78%);
+    filter: blur(28px);
+}
+
+.clock {
+    isolation: isolate;
+    max-width: 860px;
+    padding: clamp(1.25rem, 4vw, 2.75rem);
+    border-radius: 2rem;
+    background:
+        linear-gradient(145deg, rgba(20, 29, 46, 0.9), rgba(8, 13, 25, 0.92)) padding-box,
+        linear-gradient(135deg, rgba(255, 255, 255, 0.2), var(--color-accent-glow) 42%, rgba(194, 154, 91, 0.22)) border-box;
+    border: 1px solid transparent;
+    box-shadow:
+        0 36px 100px rgba(0, 0, 0, 0.58),
+        0 10px 32px rgba(0, 0, 0, 0.28),
+        0 0 70px -38px var(--color-accent-glow);
+}
+
+.clock::before {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 12%;
+    width: 76%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), var(--color-accent), transparent);
+    content: "";
+}
+
+.clock__logo {
+    box-shadow: 0 8px 26px var(--color-accent-glow), inset 0 1px rgba(255, 255, 255, 0.45);
+}
+
+.clock__title {
+    letter-spacing: -0.035em;
+}
+
+.clock__subtitle {
+    letter-spacing: 0.025em;
+}
+
+.clock__header,
+.clock__footer {
+    border-color: rgba(255, 255, 255, 0.09);
+}
+
+.clock__toggle,
+.clock__header button,
+.clock__toolbar,
+#mode-clock,
+#mode-stopwatch,
+#mode-timer {
+    backdrop-filter: blur(12px);
+}
+
+.clock__header button {
+    transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.clock__header button:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.clock__display {
+    min-height: 190px;
+}
+
+.clock__time {
+    font-size: clamp(3.3rem, 10.5vw, 7rem) !important;
+    line-height: 1;
+    letter-spacing: -0.085em !important;
+    text-shadow: 0 0 42px rgba(255, 255, 255, 0.08);
+}
+
+.clock__period {
+    letter-spacing: 0.18em;
+}
+
+.clock__details {
+    flex-wrap: wrap;
+    letter-spacing: 0.015em;
+}
+
+#seconds-ring {
+    filter: drop-shadow(0 0 10px var(--color-accent));
+}
+
+.theme-btn {
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    transition: opacity 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.theme-btn:hover {
+    transform: scale(1.12);
+    box-shadow: 0 0 18px var(--color-accent-glow);
+}
+
+button,
+a,
+input {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+}
+
+#sw-start,
+#timer-start {
+    box-shadow: 0 8px 24px var(--color-accent-glow), inset 0 1px rgba(255, 255, 255, 0.3);
+}
+
+#sw-reset,
+#timer-reset {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.clock__timezone-value,
+.clock__credit-name {
+    letter-spacing: 0.015em;
+}
+
+@media (max-width: 640px) {
+    body.page {
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .clock {
+        gap: 1.5rem;
+        border-radius: 1.5rem;
+    }
+
+    .clock__header {
+        align-items: flex-start;
+    }
+
+    .clock__header > .flex.items-center {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .clock__display {
+        min-height: 0;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .clock__time-wrap {
+        width: 100%;
+    }
+
+    .clock__footer {
+        align-items: flex-start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
